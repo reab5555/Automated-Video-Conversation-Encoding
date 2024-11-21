@@ -94,7 +94,8 @@ build_and_push_win.bat
 - Storage Admin
 - Storage Object Admin
 - Storage Object Viewer
-    
+- Workload Identity User
+  
 ### 5. Deploy on Kubernetes
 
 Modify the job.yaml file to include your Docker image and environment variables.  
