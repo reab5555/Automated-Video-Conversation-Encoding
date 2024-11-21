@@ -90,10 +90,13 @@ build_and_push_win.bat
 ```
 
 ### 4. Configure GCP Service Accounts and Permissions
-- Artifact Registry
-- IAM Workload Identity Pool
-- Storage
-- Workload Manager
+- Artifact Registry Administrator
+- IAM Workload Identity Pool Admin
+- Kubernetes Engine Admin
+- Storage Admin
+- Storage Object Admin
+- Storage Object Viewer
+- Workload Manager Admin 
     
 ### 5. Deploy on Kubernetes
 
