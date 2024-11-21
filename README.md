@@ -86,6 +86,9 @@ This project provides an automated solution for video conversion and encoding. I
 
 4. **FFmpeg**:
    - Pre-installed in the Docker container for video processing.
+  
+5. **Google Artifact Registry**:
+   - A Google Artifact Registry to store and manage the container image.
 
 ## Setup and Deployment
 
