@@ -72,14 +72,12 @@ cd <repository-folder>
 
 Set the following environment variables:
 ```bash
-    BUCKET_NAME: Name of the GCS bucket.
-    INPUT_PREFIX: Input directory in the GCS bucket.
-    OUTPUT_PREFIX: Output directory in the GCS bucket.
+BUCKET_NAME: Name of the GCS bucket.
+INPUT_PREFIX: Input directory in the GCS bucket.
+OUTPUT_PREFIX: Output directory in the GCS bucket.
 ```
 
 ### 3. Build and Push Docker Image
-On Linux:
-
 ```bash
 ./build_and_push_linux.sh
 ```
@@ -96,7 +94,7 @@ On Linux:
 Modify the job.yaml file to include your Docker image and environment variables.  
 Deploy the job using kubectl:
 ```bash
-kubectl apply -f job.yaml
+kubectl apply -f job.yaml / kubectl apply -f cronejob.yaml
 ```
 or
 
