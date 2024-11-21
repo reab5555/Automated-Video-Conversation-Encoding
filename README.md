@@ -94,10 +94,10 @@ OUTPUT_PREFIX: Output directory in the GCS bucket.
 Modify the job.yaml file to include your Docker image and environment variables.  
 Deploy the job using kubectl:
 ```bash
-kubectl apply -f job.yaml / kubectl apply -f cronejob.yaml
+kubectl apply -f job.yaml
 ```
 or
 
 ```bash
-kubectl create job --from=cronjob/video-converter-cron video-converter-manual-run
+kubectl apply -f cronejob.yaml
 ```
