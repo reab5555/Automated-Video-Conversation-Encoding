@@ -6,12 +6,12 @@ This project provides an automated solution for video conversion and encoding. I
 
 - **Video Conversion and Encoding**:
   - Converts videos to `H.265` codec for high compression and quality.
-  - Dynamically adjusts bitrate based on video resolution (e.g., `10M` for 1080p and above, `5M` for lower resolutions).
-  - Outputs videos scaled to a maximum resolution of 1080p.
+  - Dynamically adjusts bitrate based on video resolution.
+  - Outputs videos scaled to a resolution of 1080p.
 
 - **Cloud Integration**:
-  - Fetches input video files from a specified GCS bucket directory.
-  - Uploads processed video files to another directory in the same or different GCS bucket.
+  - Fetches the latest input video files from a specified GCS bucket directory.
+  - Uploads/export processed video files to an output directory in the same GCS bucket.
   - Maintains metadata of processed files to avoid reprocessing.
 
 - **Kubernetes Deployment**:
@@ -19,25 +19,25 @@ This project provides an automated solution for video conversion and encoding. I
   - Configurable through a Kubernetes YAML manifest file (`job.yaml`).
 
 - **Scheduling**:
-  - Automated scheduling through Kubernetes CronJobs or an external scheduler.
+  - Automated scheduling through Kubernetes CronJob (24-hours interval).
 
 - **Cross-Platform Support**:
-  - Compatible with Linux and Windows for local development and debugging.
+  - Compatible with Linux and Windows.
 
-## How It Works
+## Workflow
 
 1. **Input Videos**:
    - The pipeline scans a GCS bucket directory for new video files (e.g., `.mp4`, `.avi`, `.mov`, `.mkv`).
    - Processes only unprocessed files.
 
 2. **Processing**:
-   - Downloads videos locally from GCS.
+   - Fetch videos from GCS bucket input directory.
    - Encodes videos using FFmpeg.
-   - Tracks progress using a command-line progress bar.
+   - Tracks progress using a command-line progress bar (or in Kubernetes/GCP log monitoring).
    - Cleans up local temporary files after processing.
 
 3. **Output**:
-   - Uploads the processed video to the specified output directory in the GCS bucket.
+   - Uploads/export the processed video to the specified output directory in the GCS bucket.
    - Saves metadata of processed files to a metadata directory in GCS.
 
 ## File Overview
@@ -45,16 +45,16 @@ This project provides an automated solution for video conversion and encoding. I
 ### `video_converter.py`
 
 - The main script to handle:
-  - Video downloading from GCS.
+  - Video fetching from GCS.
   - Video conversion and encoding.
-  - Uploading the processed videos to GCS.
+  - Uploading/exporting the processed videos to GCS.
   - Managing metadata of processed files.
 
-### `build_and_push_linux.sh`
+### Option 1: `build_and_push_linux.sh`
 
-- Bash script for building and pushing the Docker image for the pipeline to a container registry.
+- Bash script for building and pushing the Docker image for the pipeline to a container registry (linux).
 
-### `build_and_push_win.bat`
+### Option 2: `build_and_push_win.bat`
 
 - Batch script for building and pushing the Docker image on Windows systems.
 
@@ -66,7 +66,7 @@ This project provides an automated solution for video conversion and encoding. I
 
 ### `job.yaml`
 
-- Kubernetes Job manifest file to define:
+- Kubernetes Job yaml file to define:
   - The container image for the pipeline.
   - Environment variables for GCS configuration (e.g., bucket names, prefixes).
   - Resource allocation for video processing tasks.
@@ -94,3 +94,36 @@ This project provides an automated solution for video conversion and encoding. I
 ```bash
 git clone <repository-url>
 cd <repository-folder>
+```
+
+### 2. Configure Environment Variables
+
+Set the following environment variables:
+```bash
+    BUCKET_NAME: Name of the GCS bucket.
+    INPUT_PREFIX: Input directory in the GCS bucket.
+    OUTPUT_PREFIX: Output directory in the GCS bucket.
+```
+
+### 3. Build and Push Docker Image
+On Linux:
+
+```bash
+./build_and_push_linux.sh
+```
+
+On Windows:
+```bash
+build_and_push_win.bat
+```
+
+### 4. Deploy on Kubernetes
+
+Modify the job.yaml file to include your Docker image and environment variables.  
+Deploy the job using kubectl:
+
+kubectl apply -f job.yaml
+
+### 5. Schedule the Job (Optional)
+
+    Use Kubernetes CronJobs to schedule the job at regular intervals.
