@@ -40,37 +40,6 @@ This project provides an automated solution for video conversion and encoding. I
    - Uploads/export the processed video to the specified output directory in the GCS bucket.
    - Saves metadata of processed files to a metadata directory in GCS.
 
-## File Overview
-
-### `video_converter.py`
-
-- The main script to handle:
-  - Video fetching from GCS.
-  - Video conversion and encoding.
-  - Uploading/exporting the processed videos to GCS.
-  - Managing metadata of processed files.
-
-### Option 1: `build_and_push_linux.sh`
-
-- Bash script for building and pushing the Docker image for the pipeline to a container registry (linux).
-
-### Option 2: `build_and_push_win.bat`
-
-- Batch script for building and pushing the Docker image on Windows systems.
-
-### `Dockerfile`
-
-- Dockerfile to containerize the video processing application:
-  - Installs FFmpeg and necessary dependencies.
-  - Includes the Python application and configurations.
-
-### `job.yaml`
-
-- Kubernetes Job yaml file to define:
-  - The container image for the pipeline.
-  - Environment variables for GCS configuration (e.g., bucket names, prefixes).
-  - Resource allocation for video processing tasks.
-
 ## Prerequisites
 
 1. **Google Cloud Platform**:
@@ -120,7 +89,40 @@ On Windows:
 build_and_push_win.bat
 ```
 
-### 4. Deploy on Kubernetes
+### 4. Configure GCP Service Accounts and Permissions
+```bash
+# Create service accounts
+gcloud iam service-accounts create gke-video-converter
+gcloud iam service-accounts create art-registry-sa
+
+# Grant storage permissions
+gcloud projects add-iam-policy-binding [PROJECT_ID] \
+    --member="serviceAccount:gke-video-converter@[PROJECT_ID].iam.gserviceaccount.com" \
+    --role="roles/storage.admin"
+
+# Grant Artifact Registry permissions
+gcloud artifacts repositories add-iam-policy-binding [REPOSITORY_NAME] \
+    --location=[REGION] \
+    --member="serviceAccount:art-registry-sa@[PROJECT_ID].iam.gserviceaccount.com" \
+    --role="roles/artifactregistry.reader"
+
+# Enable Workload Identity
+gcloud container clusters update [CLUSTER_NAME] \
+    --workload-pool=[PROJECT_ID].svc.id.goog \
+    --location=[REGION]
+
+# Create Kubernetes service account
+kubectl create serviceaccount art-registry-sa
+
+# Bind service accounts
+gcloud iam service-accounts add-iam-policy-binding \
+    art-registry-sa@[PROJECT_ID].iam.gserviceaccount.com \
+    --role="roles/iam.workloadIdentityUser" \
+    --member="serviceAccount:[PROJECT_ID].svc.id.goog[default/art-registry-sa]"
+
+```
+    
+### 5. Deploy on Kubernetes
 
 Modify the job.yaml file to include your Docker image and environment variables.  
 Deploy the job using kubectl:
