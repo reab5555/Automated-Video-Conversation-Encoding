@@ -84,11 +84,6 @@ On Linux:
 ./build_and_push_linux.sh
 ```
 
-On Windows:
-```bash
-build_and_push_win.bat
-```
-
 ### 4. Configure GCP Service Accounts and Permissions
 - Artifact Registry Administrator
 - Storage Admin
