@@ -90,37 +90,10 @@ build_and_push_win.bat
 ```
 
 ### 4. Configure GCP Service Accounts and Permissions
-```bash
-# Create service accounts
-gcloud iam service-accounts create gke-video-converter
-gcloud iam service-accounts create art-registry-sa
-
-# Grant storage permissions
-gcloud projects add-iam-policy-binding [PROJECT_ID] \
-    --member="serviceAccount:gke-video-converter@[PROJECT_ID].iam.gserviceaccount.com" \
-    --role="roles/storage.admin"
-
-# Grant Artifact Registry permissions
-gcloud artifacts repositories add-iam-policy-binding [REPOSITORY_NAME] \
-    --location=[REGION] \
-    --member="serviceAccount:art-registry-sa@[PROJECT_ID].iam.gserviceaccount.com" \
-    --role="roles/artifactregistry.reader"
-
-# Enable Workload Identity
-gcloud container clusters update [CLUSTER_NAME] \
-    --workload-pool=[PROJECT_ID].svc.id.goog \
-    --location=[REGION]
-
-# Create Kubernetes service account
-kubectl create serviceaccount art-registry-sa
-
-# Bind service accounts
-gcloud iam service-accounts add-iam-policy-binding \
-    art-registry-sa@[PROJECT_ID].iam.gserviceaccount.com \
-    --role="roles/iam.workloadIdentityUser" \
-    --member="serviceAccount:[PROJECT_ID].svc.id.goog[default/art-registry-sa]"
-
-```
+- Artifact Registry
+- IAM Workload Identity Pool
+- Storage
+- Workload Manager
     
 ### 5. Deploy on Kubernetes
 
