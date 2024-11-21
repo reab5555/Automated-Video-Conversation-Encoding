@@ -1,4 +1,4 @@
-# Automated Video Conversion and Encoding Pipeline
+# Automated Video Conversion and Encoding
 
 This project provides an automated solution for video conversion and encoding. It is designed to run on Kubernetes, leveraging Google Cloud Storage (GCS) for managing input and output files. The pipeline includes an automated scheduling mechanism to process videos at regular intervals.
 
