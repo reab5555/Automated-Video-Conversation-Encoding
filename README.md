@@ -102,3 +102,8 @@ Deploy the job using kubectl:
 ```bash
 kubectl apply -f job.yaml
 ```
+or
+
+```bash
+kubectl create job --from=cronjob/video-converter-cron video-converter-manual-run
+```
