@@ -121,9 +121,6 @@ build_and_push_win.bat
 
 Modify the job.yaml file to include your Docker image and environment variables.  
 Deploy the job using kubectl:
-
+```bash
 kubectl apply -f job.yaml
-
-### 5. Schedule the Job (Optional)
-
-    Use Kubernetes CronJobs to schedule the job at regular intervals.
+```
