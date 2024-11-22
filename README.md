@@ -63,7 +63,3 @@ or
 ```bash
 kubectl apply -f cronejob.yaml
 ```
-
-## Default encoding settings:
-encoder = 'libx265'   
-preset = 'veryfast'    
