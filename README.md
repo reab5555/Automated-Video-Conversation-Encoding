@@ -23,7 +23,7 @@ This project provides an automated solution for video conversion and encoding. I
 - FFmpeg Pre-installed in the Docker container for video processing.
 - Docker installed for building container images.
 - A GCS bucket for input and output files.
-- Service account with appropriate permissions (`roles/storage.objectAdmin` for example) or a gcp service account json credentials file.
+- Service account with appropriate permissions (`roles/storage.objectAdmin` for example) or a service account json credentials file.
 - A Kubernetes cluster to deploy the job.
 - A Google Artifact Registry to store and manage the container image.
 
