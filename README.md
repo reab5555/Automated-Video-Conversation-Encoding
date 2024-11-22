@@ -1,63 +1,26 @@
 # Automated Video Conversion and Encoding
 
-This project provides an automated solution for video conversion and encoding. It is designed to run on Kubernetes, leveraging Google Cloud Storage (GCS) for managing input and output files. The pipeline includes an automated scheduling mechanism to process videos at regular intervals.
+This project provides An automated Kubernetes-based video conversion solution leveraging GCS storage, with watch folder functionality for automated processing."
+
+## Description
+This project provides an automated solution for video conversion and encoding. It is designed to run on Kubernetes, leveraging Google Cloud Storage (GCS) for managing input and output files. The pipeline includes an automated scheduling mechanism to process videos at regular intervals, functioning like a watch folder system - automatically detecting and processing new video files added to the input directory. The system runs daily at 1:00 AM Israel time, processing multiple videos in parallel across Kubernetes pods.
 
 ## Features
-
-- **Video Conversion and Encoding**:
-  - Converts videos to `H.265` codec for high compression and quality.
-  - Dynamically adjusts bitrate based on video resolution.
-  - Outputs videos scaled to a resolution of 1080p.
-
-- **Cloud Integration**:
-  - Fetches the latest input video files from a specified GCS bucket directory.
-  - Uploads/export processed video files to an output directory in the same GCS bucket.
-  - Maintains metadata of processed files to avoid reprocessing.
-
-- **Kubernetes Deployment**:
-  - Runs as a Kubernetes job for scalable and isolated video processing tasks.
-  - Configurable through a Kubernetes YAML manifest file (`job.yaml`).
-
-- **Scheduling**:
-  - Automated scheduling through Kubernetes CronJob (24-hours interval).
-
-- **Cross-Platform Support**:
-  - Compatible with Linux and Windows.
-
-## Workflow
-
-1. **Input Videos**:
-   - The pipeline scans a GCS bucket directory for new video files (e.g., `.mp4`, `.avi`, `.mov`, `.mkv`).
-   - Processes only unprocessed files.
-
-2. **Processing**:
-   - Fetch videos from GCS bucket input directory.
-   - Encodes videos using FFmpeg.
-   - Tracks progress using a command-line progress bar (or in Kubernetes/GCP log monitoring).
-   - Cleans up local temporary files after processing.
-
-3. **Output**:
-   - Uploads/export the processed video to the specified output directory in the GCS bucket.
-   - Saves metadata of processed files to a metadata directory in GCS.
+- Converts videos to `H.265` codec for high compression and quality, cutting file sized by half by reducing bitrate.
+- Fetches the latest input video files from a specified GCS bucket directory.
+- Uploads/export processed video files to an output directory in the same GCS bucket.
+- Maintains metadata of processed files to avoid reprocessing.
+- Runs as a Kubernetes job for scalable and isolated video processing tasks, and utilize parallel processing.
+- Automated scheduling through Kubernetes CronJob (24-hours interval).
 
 ## Prerequisites
-
-1. **Google Cloud Platform**:
-   - A GCS bucket for input and output files.
-   - Service account with appropriate permissions (`roles/storage.objectAdmin`).
-
-2. **Kubernetes**:
-   - A Kubernetes cluster to deploy the job.
-   - Kubernetes CLI (`kubectl`) configured to access the cluster.
-
-3. **Docker**:
-   - Docker installed for building container images.
-
-4. **FFmpeg**:
-   - Pre-installed in the Docker container for video processing.
-  
-5. **Google Artifact Registry**:
-   - A Google Artifact Registry to store and manage the container image.
+- FFmpeg Pre-installed in the Docker container for video processing.
+- Docker installed for building container images.
+- A GCS bucket for input and output files.
+- Service account with appropriate permissions (`roles/storage.objectAdmin` for example).
+- or, a gcp service account json credentials file.
+- A Kubernetes cluster to deploy the job.
+- A Google Artifact Registry to store and manage the container image.
 
 ## Setup and Deployment
 
@@ -75,21 +38,15 @@ Set the following environment variables:
 BUCKET_NAME: Name of the GCS bucket.
 INPUT_PREFIX: Input directory in the GCS bucket.
 OUTPUT_PREFIX: Output directory in the GCS bucket.
+METADATA_PREFIX: Metadata directory in the GCS bucket
 ```
 
 ### 3. Build and Push Docker Image
 ```bash
-./build_and_push_linux.sh
+./build_and_push.sh
 ```
-
-### 4. Configure GCP Service Accounts and Permissions
-- Artifact Registry Administrator
-- Storage Admin
-- Storage Object Admin
-- Storage Object Viewer
-- Workload Identity User
   
-### 5. Deploy on Kubernetes
+### 4. Deploy on Kubernetes
 
 Modify the job.yaml file to include your Docker image and environment variables.  
 Deploy the job using kubectl:
