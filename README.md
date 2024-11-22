@@ -7,6 +7,8 @@ This project provides An automated Kubernetes-based video conversion solution le
 ## Description
 This project provides an automated solution for video conversion and encoding. It is designed to run on Kubernetes, leveraging Google Cloud Storage (GCS) for managing input and output files. The pipeline includes an automated scheduling mechanism to process videos at regular intervals, functioning like a watch folder system - automatically detecting and processing new video files added to the input directory. The system runs daily, processing multiple videos in parallel across Kubernetes pods.
 
+------------------------------------------------------------------------------------
+
 <img src="appendix/workflow.png" alt="Alt text for image1" width="500"/>
 
 ## Features
