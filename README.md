@@ -63,3 +63,16 @@ or
 ```bash
 kubectl apply -f cronejob.yaml
 ```
+
+Customizing Encoding Settings
+
+You can customize the video encoding by modifying the following parameters in the processing script:
+
+```pyhon
+encoder = 'libx265'
+preset = 'veryfast'
+```
+encoder: Specifies the codec used for encoding (libx265 for H.265 codec by default).  
+preset: Determines encoding speed vs. compression trade-off (e.g., ultrafast, fast, slow).  
+
+This solution ensures efficient, scalable, and automated video processing, making it ideal for applications requiring regular video compression and format conversion.
