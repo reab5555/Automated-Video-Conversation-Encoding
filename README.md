@@ -28,16 +28,13 @@ This project provides an automated solution for video conversion and encoding. I
 - A Google Artifact Registry to store and manage the container image.
 
 ## Setup and Deployment
-
 ### 1. Clone the Repository
-
 ```bash
 git clone <repository-url>
 cd <repository-folder>
 ```
 
 ### 2. Configure Environment Variables
-
 Set the following environment variables:
 ```bash
 BUCKET_NAME: Name of the GCS bucket.
@@ -52,7 +49,6 @@ METADATA_PREFIX: Metadata directory in the GCS bucket
 ```
   
 ### 4. Deploy on Kubernetes
-
 Modify the job.yaml file to include your Docker image and environment variables.  
 Deploy the job using kubectl:
 ```bash
@@ -65,8 +61,7 @@ kubectl apply -f cronejob.yaml
 ```
 
 Customizing Encoding Settings
-
-You can customize the video encoding by modifying the following parameters in the processing script:
+You can customize the video encoding by modifying the following parameters in the processing script:   
 
 ```pyhon
 encoder = 'libx265'
