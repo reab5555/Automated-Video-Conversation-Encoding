@@ -7,6 +7,8 @@ This project provides An automated Kubernetes-based video conversion solution le
 ## Description
 This project provides an automated solution for video conversion and encoding. It is designed to run on Kubernetes, leveraging Google Cloud Storage (GCS) for managing input and output files. The pipeline includes an automated scheduling mechanism to process videos at regular intervals, functioning like a watch folder system - automatically detecting and processing new video files added to the input directory. The system runs daily, processing multiple videos in parallel across Kubernetes pods.
 
+<img src="appendix/workflow.png" alt="Alt text for image1" width="500"/>
+
 ## Features
 - Converts videos to `H.265` codec for high compression and quality, cutting file sized by half by reducing bitrate.
 - Fetches the latest input video files from a specified GCS bucket directory.
@@ -14,8 +16,6 @@ This project provides an automated solution for video conversion and encoding. I
 - Maintains metadata of processed files to avoid reprocessing.
 - Runs as a Kubernetes job for scalable and isolated video processing tasks, and utilize parallel processing.
 - Automated scheduling through Kubernetes CronJob (24-hours interval).
-
-<img src="appendix/workflow.png" alt="Alt text for image1" width="500"/>
 
 ## Prerequisites
 - FFmpeg Pre-installed in the Docker container for video processing.
