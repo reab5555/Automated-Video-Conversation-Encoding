@@ -1,6 +1,6 @@
 <img src="appendix/icon.png" alt="Alt text for image1" width="100"/>
 
-# Automated Video Conversion and Encoding
+# Automated Video Encoder
 
 This project provides an automated Kubernetes-based video conversion solution leveraging GCS storage, with watch folder functionality for automated processing.
 
