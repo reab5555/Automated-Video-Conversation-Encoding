@@ -9,7 +9,7 @@ This project provides an automated solution for video conversion and encoding. I
 
 ------------------------------------------------------------------------------------
 
-<img src="appendix/workflow.png" alt="Alt text for image1" width="500"/>
+<img src="appendix/workflow.png" alt="Alt text for image1" width="400"/>
 
 ## Features
 - Converts videos to `H.265` codec for high compression and quality, cutting file sized by half by reducing bitrate (set by default for demonstration purposes).
