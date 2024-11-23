@@ -12,7 +12,7 @@ This project provides an automated solution for video conversion and encoding. I
 <img src="appendix/workflow.png" alt="Alt text for image1" width="500"/>
 
 ## Features
-- Converts videos to `H.265` codec for high compression and quality, cutting file sized by half by reducing bitrate.
+- Converts videos to `H.265` codec for high compression and quality, cutting file sized by half by reducing bitrate (set by default for demonstration purposes).
 - Fetches the latest input video files from a specified GCS bucket directory.
 - Uploads/export processed video files to an output directory in the same GCS bucket.
 - Maintains metadata of processed files to avoid reprocessing.
