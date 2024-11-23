@@ -2,7 +2,7 @@
 
 # Automated Video Encoder
 
-This project provides an automated Kubernetes-based video encoding solution leveraging GCS storage, with watch folder functionality for automated processing.
+This project provides an automated video encoding solution leveraging GCS storage, with watch folder functionality for automated processing.
 
 ## Description
 This project provides an automated solution for video conversion and encoding. It is designed to run on Kubernetes, leveraging Google Cloud Storage (GCS) for managing input and output files. The pipeline includes an automated scheduling mechanism to process videos at regular intervals, functioning like a watch folder system - automatically detecting and processing new video files added to the input directory. The system runs daily, processing multiple videos in parallel across Kubernetes pods.
